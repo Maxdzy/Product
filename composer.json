@@ -1,0 +1,14 @@
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "name": "maxnik/test",
+    "authors": [
+        {
+            "name": "maxnik",
+            "email": "dzy91maxim@gmail.com"
+        }
+    ]
+}
