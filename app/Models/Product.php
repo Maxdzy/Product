@@ -4,48 +4,30 @@ namespace App\Models;
 
 class Product
 {
-    public $pdo;
+    public $id;
+    public $SKU;
+    public $name;
+    public $price;
     public $option;
 
-    public function __construct($pdo, $option)
+    public function set($id, $SKU, $name, $price, $option = null)
     {
-        $this->pdo = $pdo;
+        $this->id = $id;
+        $this->SKU = $SKU;
+        $this->name = $name;
+        $this->price = $price;
         $this->option = $option;
     }
 
-    public function showAll()
+    public function get()
     {
-        $result = [];
-        $all = $this->pdo->query('SELECT * from products');
-        foreach ($all as $key => $product) {
-
-            $result[$key]["id"] = $product["id"];
-            $result[$key]["SKU"] = $product["SKU"];
-            $result[$key]["name"] = $product["name"];
-            $result[$key]["price"] = $product["price"];
-            $result[$key]["type"] = $product["type_id"];
-
-            //$result[$key]["option"] = array($this->option->get());
-
-            //todo edit switch, to class oprions
-            switch ($product["type_id"]) {
-                case 0:
-                    $result[$key]["option"] = array("size"=>$product["size"]);
-                    break;
-                case 1:
-                    $result[$key]["option"] = array(
-                        "height" => $product["height"],
-                        "width" => $product["width"],
-                        "length" => $product["length"]
-                    );
-                    break;
-                case 2:
-                    $result[$key]["option"] = array("weight", $product["weight"]);
-                    break;
-            }
-        }
-
-        return json_encode($result);
+        return [
+            "id" => $this->id,
+            "SKU" => $this->SKU,
+            "name" => $this->name,
+            "price" => $this->price,
+            "option" => array($this->option),
+        ];
     }
 
 }

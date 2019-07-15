@@ -8,20 +8,50 @@ use App\Options\Size;
 use App\Options\Dimension;
 use App\Options\Weight;
 
+$result = [];
+$arrayObject = [];
+
 $mysql = new DB_config();
+$all = $mysql->pdo->query('SELECT * from products');
 
-$option = new Dimension(101, 100, 33);
-$option2 = new Size(102);
-$option3 = new Size(103);
-$option4 = new Weight(55);
+foreach ($all as $key => $product) {
 
-$options = compact('option', 'option2', 'option3', 'option4');
+    $result[$key]["id"] = $product["id"];
+    $result[$key]["SKU"] = $product["SKU"];
+    $result[$key]["name"] = $product["name"];
+    $result[$key]["price"] = $product["price"];
+    $result[$key]["type"] = $product["type_id"];
 
-$product = new Product($mysql->pdo, $options);
+    //$result[$key]["option"] = array($this->option->get());
 
-/*foreach ($product->option as $key => $option) {
-	$option->render();
-}*/
+    //todo edit switch, to class oprions
+    switch ($product["type_id"]) {
+        case 0:
+            $result[$key]["option"] = array("size" => $product["size"]);
+            $option = new Size($product["size"]);
+            break;
+        case 1:
+            $result[$key]["option"] = array(
+                "height" => $product["height"],
+                "width" => $product["width"],
+                "length" => $product["length"]
+            );
+            $option = new Dimension($product["width"], $product["height"], $product["length"]);
+            break;
+        case 2:
+            $result[$key]["option"] = array("weight", $product["weight"]);
+            $option = new Weight($product["weight"]);
+            break;
+    }
+    $arrayObject[$key] = new Product();
+    $arrayObject[$key]->set($product["id"], $product["SKU"], $product["name"], $product["price"], $option);
+    $arrayObject[$key]=$product;
+
+}
+
+var_dump($arrayObject);
+
+$result_json = json_encode($result);
 
 require_once('./view/list.php');
 
