@@ -4,8 +4,8 @@ namespace App\Models;
 
 class Product
 {
-    public $option;
     public $pdo;
+    public $option;
 
     public function __construct($pdo, $option)
     {
@@ -13,38 +13,39 @@ class Product
         $this->option = $option;
     }
 
-    public function show()
+    public function showAll()
     {
-        $result = "";
-        $html_products = "";
-        foreach ($this->pdo->query('SELECT * from products') as $key => $product) {
-            $html_products .= "
-        <div class='col-3 card product'>
-          <div class='card-body'>
-            <p>{$product["SKU"]}</p>
-            <p>{$product["name"]}</p>
-            <p>{$product["price"]}</p>";
+        $result = [];
+        $all = $this->pdo->query('SELECT * from products');
+        foreach ($all as $key => $product) {
+
+            $result[$key]["id"] = $product["id"];
+            $result[$key]["SKU"] = $product["SKU"];
+            $result[$key]["name"] = $product["name"];
+            $result[$key]["price"] = $product["price"];
+            $result[$key]["type"] = $product["type_id"];
+
+            //$result[$key]["option"] = array($this->option->get());
+
+            //todo edit switch, to class oprions
             switch ($product["type_id"]) {
                 case 0:
-                    $html_products .= "<p>Size: {$product["size"]} Mb</p>";
+                    $result[$key]["option"] = array("size"=>$product["size"]);
                     break;
-
                 case 1:
-                    $html_products .= "<p>Dimension: {$product["height"]}x{$product["width"]}x{$product["length"]}</p>";
+                    $result[$key]["option"] = array(
+                        "height" => $product["height"],
+                        "width" => $product["width"],
+                        "length" => $product["length"]
+                    );
                     break;
-
                 case 2:
-                    $html_products .= "<p>Weight: {$product["weight"]} KG</p>";
+                    $result[$key]["option"] = array("weight", $product["weight"]);
                     break;
             }
-
-            $html_products .= "
-           </div>
-        </div>";
         }
 
-        $result = $html_products;
-        return $result;
+        return json_encode($result);
     }
 
 }

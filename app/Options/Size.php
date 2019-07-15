@@ -6,25 +6,23 @@ namespace App\Options;
 
 class Size implements OptionInterface
 {
-    private $width;
-    private $height;
+    private $size;
 
-    public function __construct($width, $height)
+    public function __construct($size)
     {
-        $this->width = $width;
-        $this->height = $height;
+        $this->size = $size;
         return $this;
     }
 
     public function get()
     {
         return [
-            'width' => $this->width,
-            'height' => $this->height,
+            'size' => $this->size,
         ];
     }
 
-    public function render(){
-      echo $this->width." ".$this->height." class <br>";
+    public function render()
+    {
+        echo "<p>Size: {$this->size} Mb</p>";
     }
 }
