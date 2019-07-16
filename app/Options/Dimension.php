@@ -10,8 +10,10 @@ use App\Interfaces\OptionInterface;
  * Class Dimension
  * @package App\Options
  */
-class Dimension implements OptionInterface
+class Dimension extends AbstractProperty implements OptionInterface
 {
+
+    protected $table = 'dimensions';
 
     private $width;
     private $height;

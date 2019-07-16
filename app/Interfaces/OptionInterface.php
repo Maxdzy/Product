@@ -10,6 +10,7 @@ namespace App\Interfaces;
  */
 interface OptionInterface
 {
+    public function getTable();
     /**
      * @return mixed
      */
@@ -19,4 +20,6 @@ interface OptionInterface
      * @return mixed
      */
     public function render();
+
+    public function toArray();
 }

@@ -48,6 +48,8 @@ class ArrayProductRepository implements ProductRepositoryInterface
             switch ($item["type_id"]) {
                 case Product::TYPE_DVD_DISC:
                     $option = new Size($item["size"]);
+                    //$option = new OptionsRepository(new Size())
+
                     break;
                 case Product::TYPE_BOOK:
                     $option = new Weight($item["weight"]);
