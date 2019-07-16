@@ -9,21 +9,36 @@ use App\Options\Dimension;
 use App\Options\Size;
 use App\Options\Weight;
 
+/**
+ * Class ArrayProductRepository
+ * @package App\Repository
+ */
 class ArrayProductRepository implements ProductRepositoryInterface
 {
     private $products = [];
     private $mysql;
 
+    /**
+     * ArrayProductRepository constructor.
+     * @param $mysql
+     */
     public function __construct($mysql)
     {
         $this->mysql = $mysql;
+        return $this;
     }
 
+    /**
+     * @param Product $product
+     */
     public function save(Product $product)
     {
         $this->products[(string)$product->getId()] = $product;
     }
 
+    /**
+     * @return array
+     */
     public function getAll()
     {
         $all = $this->mysql->pdo->query('SELECT * from products');
@@ -51,6 +66,10 @@ class ArrayProductRepository implements ProductRepositoryInterface
         return $this->products;
     }
 
+    /**
+     * @param Product $productId
+     * @return mixed|null
+     */
     public function findById(Product $productId)
     {
         $result = null;

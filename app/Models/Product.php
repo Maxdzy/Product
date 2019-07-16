@@ -4,8 +4,13 @@ namespace App\Models;
 
 use App\Interfaces\ProductInterface;
 
+/**
+ * Class Product
+ * @package App\Models
+ */
 class Product implements ProductInterface
 {
+
     const
         TYPE_DVD_DISC = 0,
         TYPE_BOOK = 1,
@@ -18,6 +23,15 @@ class Product implements ProductInterface
     public $type_id;
     public $option;
 
+    /**
+     * Product constructor.
+     * @param $id
+     * @param $SKU
+     * @param $name
+     * @param $price
+     * @param $type_id
+     * @param null $option
+     */
     public function __construct($id, $SKU, $name, $price, $type_id, $option = null)
     {
         $this->id = $id;
@@ -26,13 +40,20 @@ class Product implements ProductInterface
         $this->price = $price;
         $this->price = $type_id;
         $this->option = $option;
+        return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return array|mixed
+     */
     public function get()
     {
         return [
@@ -44,6 +65,9 @@ class Product implements ProductInterface
         ];
     }
 
+    /**
+     * @return array|mixed
+     */
     public static function typeData()
     {
         return [
@@ -53,6 +77,9 @@ class Product implements ProductInterface
         ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function render()
     {
         $result = "

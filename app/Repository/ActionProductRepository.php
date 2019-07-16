@@ -6,15 +6,28 @@ use App\Interfaces\ActionRepositoryInterface;
 use App\Models\Product;
 
 
+/**
+ * Class ActionProductRepository
+ * @package App\Repository
+ */
 class ActionProductRepository implements ActionRepositoryInterface
 {
     private $mysql;
 
+    /**
+     * ActionProductRepository constructor.
+     * @param $mysql
+     */
     public function __construct($mysql)
     {
         $this->mysql = $mysql;
+        return $this;
     }
 
+    /**
+     * @param $data
+     * @return mixed|void
+     */
     public function add($data)
     {
         switch ($data["type_id"]) {
@@ -34,6 +47,10 @@ class ActionProductRepository implements ActionRepositoryInterface
         $pdo->execute($data);
     }
 
+    /**
+     * @param $arrayProductId
+     * @return mixed|void
+     */
     public function delete($arrayProductId)
     {
 
