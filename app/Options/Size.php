@@ -3,6 +3,8 @@
 
 namespace App\Options;
 
+use App\Interfaces\OptionInterface;
+
 
 class Size implements OptionInterface
 {
@@ -23,6 +25,6 @@ class Size implements OptionInterface
 
     public function render()
     {
-        echo "<p>Size: {$this->size} Mb</p>";
+        return "Size: {$this->size} Mb";
     }
 }

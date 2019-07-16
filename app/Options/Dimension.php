@@ -3,6 +3,8 @@
 
 namespace App\Options;
 
+use App\Interfaces\OptionInterface;
+
 
 class Dimension implements OptionInterface
 {
@@ -29,6 +31,6 @@ class Dimension implements OptionInterface
 
     public function render()
     {
-        echo "<p>Dimension: {$this->width} x {$this->height} x {$this->height}</p>";
+        return "Dimension: {$this->width} x {$this->height} x {$this->height}";
     }
 }

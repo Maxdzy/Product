@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Options;
+namespace App\Interfaces;
 
 
 interface OptionInterface

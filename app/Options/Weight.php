@@ -3,8 +3,10 @@
 
 namespace App\Options;
 
+use App\Interfaces\OptionInterface;
 
-class weight implements OptionInterface
+
+class Weight implements OptionInterface
 {
     private $weight;
 
@@ -22,6 +24,6 @@ class weight implements OptionInterface
     }
 
     public function render(){
-      echo $this->weight. " class <br>";
+      return "Weight {$this->weight} Kg";
     }
 }
